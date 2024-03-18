@@ -1,28 +1,73 @@
+import { Link } from "react-router-dom";
+
+const data = [
+	{
+		name: "Mina",
+		location: "Brazil",
+		Number: "123456789",
+		Email: "tielo@aba.gr",
+		courses: "66",
+	},
+	{
+		name: "Hunter",
+		location: "Brazil",
+		Number: "123456789",
+		Email: "tielo@aba.gr",
+		courses: "66",
+	},
+	{
+		name: "Andrew",
+		location: "Brazil",
+		Number: "123456789",
+		Email: "tielo@aba.gr",
+		courses: "66",
+	},
+	{
+		name: "Billy",
+		location: "Brazil",
+		Number: "123456789",
+		Email: "tielo@aba.gr",
+		courses: "66",
+	},
+	{
+		name: "Emily",
+		location: "Brazil",
+		Number: "123456789",
+		Email: "tielo@aba.gr",
+		courses: "66",
+	},
+];
+
 const Cards = () => {
 	return (
-		<>
-			<div className="flex justify-around">
-				<div className="flex bg-gray-300 rounded-lg shadow-lg m-4 min-w-[295px] mobileL:w-[455px] flex-col mobileL:flex-row ">
-					<div className="flex flex-col justify-between items-center m-4">
+		<div className="flex justify-around bg-[#F9F5EB] flex-wrap h-[100vh] py-10">
+			{data.map((college) => (
+				<div
+					key={college.name}
+					className="flex bg-gray-300 rounded-lg items-center shadow-lg m-4 min-w-[295px] mobileL:w-[455px] flex-col mobileL:flex-row h-[300px]"
+				>
+					<div className="flex flex-col justify-between items-center m-4 w-6/12">
 						<img
 							src="https://images.unsplash.com/photo-1562774053-701939374585?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8Y29sbGVnZXxlbnwwfHwwfHx8MA%3D%3D"
-							className="rounded-lg object-cover h-auto w-9/12"
+							className="rounded-lg object-cover  w-11/12"
 						/>
-						<button className="bg-blue-300 rounded-lg m-2 p-3 font-semibold w-20">
+						<Link
+							to={"/form"}
+							className="bg-[#EA5455] rounded-lg m-2 p-3 font-semibold w-20"
+						>
 							Enroll
-						</button>
+						</Link>
 					</div>
-					<div className="font-semibold m-4 mt-0 mobileL:mt-4 flex flex-col items-center text-center">
-						<p className="mb-2">Sri Krisha College of Technology </p>
-						<p className="mb-2">Location</p>
-						<p className="mb-2">Number</p>
-						<p className="mb-2">Description</p>
-						<p className="mb-2">Email</p>
-						<p className="mb-2">Courses</p>
+					<div className="text-sm font-semibold text-center mobileL:text-start m-4 mt-0 mobileL:mt-4 flex flex-col w-6/12">
+						<p className="mb-2">{college.name}</p>
+						<p className="mb-2">{college.location}</p>
+						<p className="mb-2">{college.Number}</p>
+						<p className="mb-2">{college.Email}</p>
+						<p className="mb-2">{college.courses}</p>
 					</div>
 				</div>
-			</div>
-		</>
+			))}
+		</div>
 	);
 };
 

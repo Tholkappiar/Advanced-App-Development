@@ -44,7 +44,7 @@ const Cards = () => {
 			{data.map((college) => (
 				<div
 					key={college.name}
-					className="flex bg-gray-300 rounded-lg items-center shadow-lg m-4 min-w-[295px] mobileL:w-[455px] flex-col mobileL:flex-row h-[300px]"
+					className="flex bg-gray-300 rounded-lg items-center shadow-lg m-4 min-w-[295px] mobileS:w-[455px] flex-col mobileS:flex-row h-[300px]"
 				>
 					<div className="flex flex-col justify-between items-center m-4 w-6/12">
 						<img
@@ -58,12 +58,11 @@ const Cards = () => {
 							Enroll
 						</Link>
 					</div>
-					<div className="text-sm font-semibold text-center mobileL:text-start m-4 mt-0 mobileL:mt-4 flex flex-col w-6/12">
+					<div className="text-sm font-semibold text-center mobileS:text-start m-4 mt-0 mobileS:mt-4 flex flex-col w-6/12">
 						<p className="mb-2">{college.name}</p>
 						<p className="mb-2">{college.location}</p>
 						<p className="mb-2">{college.Number}</p>
 						<p className="mb-2">{college.Email}</p>
-						<p className="mb-2">{college.courses}</p>
 					</div>
 				</div>
 			))}

@@ -23,7 +23,7 @@ export default function AdminLogin() {
 		const { email, password } = formData;
 		if (email === "admin@gmail.com" && password === "admin") {
 			localStorage.setItem("isLoggedIn", true);
-			navigate("/dash");
+			navigate("/adminDash");
 		} else {
 			alert("Invalid email or password");
 		}

@@ -34,4 +34,15 @@ public class UserService {
         return userRepository.findAllByName(name);
     }
 
+    public UserEntity updateUser(Long id, UserEntity updatedUserEntity) {
+        Optional<UserEntity> userEntity = userRepository.findById(id);
+        if (userEntity.isPresent()) {
+            UserEntity existingUser = userEntity.get();
+            existingUser.setEmail(updatedUserEntity.getEmail());
+            existingUser.setName(updatedUserEntity.getName());
+            existingUser.setPassword(updatedUserEntity.getPassword());
+            return userRepository.save(existingUser);
+        }
+        return null;
+    }
 }

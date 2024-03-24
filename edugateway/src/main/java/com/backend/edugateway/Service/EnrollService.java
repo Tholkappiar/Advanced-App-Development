@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.backend.edugateway.Entity.EnrollEntity;
 import com.backend.edugateway.Repository.EnrollRepository;
+import com.backend.edugateway.dto.EnrollCourseUpdate;
 
 @Service
 public class EnrollService {
@@ -39,20 +40,20 @@ public class EnrollService {
     }
 
     @SuppressWarnings("null")
-    public EnrollEntity updateEnrollment(Long id, EnrollEntity enrollEntity) {
+    public EnrollEntity updateEnrollment(Long id, EnrollCourseUpdate enrollCourseUpdate) {
         Optional<EnrollEntity> updateEnrollment = enrollRepository.findById(id);
         if (updateEnrollment.isPresent()) {
             EnrollEntity updatedEnrollment = updateEnrollment.get();
-            updatedEnrollment.setName(enrollEntity.getName());
-            updatedEnrollment.setEmail(enrollEntity.getEmail());
-            updatedEnrollment.setGender(enrollEntity.getGender());
-            updatedEnrollment.setMobile(enrollEntity.getMobile());
-            updatedEnrollment.setDob(enrollEntity.getDob());
-            updatedEnrollment.setSslc(enrollEntity.getSslc());
-            updatedEnrollment.setHsc(enrollEntity.getHsc());
-            updatedEnrollment.setAge(enrollEntity.getAge());
-            updatedEnrollment.setCountry(enrollEntity.getCountry());
-            updatedEnrollment.setAddress(enrollEntity.getAddress());
+            updatedEnrollment.setName(enrollCourseUpdate.getName());
+            updatedEnrollment.setEmail(enrollCourseUpdate.getEmail());
+            updatedEnrollment.setGender(enrollCourseUpdate.getGender());
+            updatedEnrollment.setMobile(enrollCourseUpdate.getMobile());
+            updatedEnrollment.setDob(enrollCourseUpdate.getDob());
+            updatedEnrollment.setSslc(enrollCourseUpdate.getSslc());
+            updatedEnrollment.setHsc(enrollCourseUpdate.getHsc());
+            updatedEnrollment.setAge(enrollCourseUpdate.getAge());
+            updatedEnrollment.setCountry(enrollCourseUpdate.getCountry());
+            updatedEnrollment.setAddress(enrollCourseUpdate.getAddress());
             return enrollRepository.save(updatedEnrollment);
         }
         return null;

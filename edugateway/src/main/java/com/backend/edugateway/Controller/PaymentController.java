@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.backend.edugateway.Entity.PaymentEntity;
 import com.backend.edugateway.Service.PaymentService;
+import com.backend.edugateway.dto.PaymentDTO;
 
 /**
  * CollegeController
@@ -27,6 +29,7 @@ public class PaymentController {
     private PaymentService paymentService;
 
     @GetMapping("/allPayments")
+    @PreAuthorize("hasAuthority('USER')")
     public List<PaymentEntity> getAllPayments() {
         return paymentService.getAllPayments();
     }
@@ -52,7 +55,7 @@ public class PaymentController {
     }
 
     @PutMapping("/updatePayment/{id}")
-    public PaymentEntity updateUser(@PathVariable Long id, @RequestBody PaymentEntity paymentEntity) {
-        return paymentService.updatePayment(id, paymentEntity);
+    public PaymentEntity updateUser(@PathVariable Long id, @RequestBody PaymentDTO paymentDTO) {
+        return paymentService.updatePayment(id, paymentDTO);
     }
 }

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.backend.edugateway.Entity.PaymentEntity;
 import com.backend.edugateway.Repository.PaymentRepository;
+import com.backend.edugateway.dto.PaymentDTO;
 
 @Service
 public class PaymentService {
@@ -38,15 +39,14 @@ public class PaymentService {
     }
 
     @SuppressWarnings("null")
-    public PaymentEntity updatePayment(Long id, PaymentEntity paymentEntity) {
+    public PaymentEntity updatePayment(Long id, PaymentDTO paymentDTO) {
         Optional<PaymentEntity> updatePaymentEntity = paymentRepository.findById(id);
         if (updatePaymentEntity.isPresent()) {
             PaymentEntity updatedPaymentEntity = updatePaymentEntity.get();
-            updatedPaymentEntity.setName(paymentEntity.getName());
-            updatedPaymentEntity.setCourses(paymentEntity.getCourses());
-            updatedPaymentEntity.setAddress(paymentEntity.getAddress());
-            updatedPaymentEntity.setDate(paymentEntity.getDate());
-            updatedPaymentEntity.setStatus(paymentEntity.getStatus());
+            updatedPaymentEntity.setCourses(paymentDTO.getCourses());
+            updatedPaymentEntity.setAddress(paymentDTO.getAddress());
+            updatedPaymentEntity.setDate(paymentDTO.getDate());
+            updatedPaymentEntity.setStatus(paymentDTO.getStatus());
             return paymentRepository.save(updatedPaymentEntity);
         }
         return null;

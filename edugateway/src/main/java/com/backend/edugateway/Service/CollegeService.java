@@ -19,14 +19,17 @@ public class CollegeService {
         return collegeRepository.findAll();
     }
 
+    @SuppressWarnings("null")
     public Optional<CollegeEntity> getCollegeById(Long id) {
         return collegeRepository.findById(id);
     }
 
+    @SuppressWarnings("null")
     public CollegeEntity createCollege(CollegeEntity collegeEntity) {
         return collegeRepository.save(collegeEntity);
     }
 
+    @SuppressWarnings("null")
     public void deleteCollege(Long id) {
         collegeRepository.deleteById(id);
     }
@@ -35,6 +38,7 @@ public class CollegeService {
         return collegeRepository.findByCollegeName(name);
     }
 
+    @SuppressWarnings("null")
     public CollegeEntity updateCollege(Long id, CollegeEntity collegeEntity) {
         Optional<CollegeEntity> updateCollegeEntity = collegeRepository.findById(id);
         if (updateCollegeEntity.isPresent()) {

@@ -18,14 +18,17 @@ public class UserService {
         return userRepository.findAll();
     }
 
+    @SuppressWarnings("null")
     public Optional<UserEntity> getSignUpbyId(Long id) {
         return userRepository.findById(id);
     }
 
+    @SuppressWarnings("null")
     public UserEntity createSignup(UserEntity signup) {
         return userRepository.save(signup);
     }
 
+    @SuppressWarnings("null")
     public void deleteSignup(Long id) {
         userRepository.deleteById(id);
     }
@@ -34,6 +37,7 @@ public class UserService {
         return userRepository.findAllByName(name);
     }
 
+    @SuppressWarnings("null")
     public UserEntity updateUser(Long id, UserEntity updatedUserEntity) {
         Optional<UserEntity> userEntity = userRepository.findById(id);
         if (userEntity.isPresent()) {

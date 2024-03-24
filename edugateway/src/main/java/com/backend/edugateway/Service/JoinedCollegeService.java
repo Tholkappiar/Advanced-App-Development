@@ -19,14 +19,17 @@ public class JoinedCollegeService {
         return joinedCollegeRepository.findAll();
     }
 
+    @SuppressWarnings("null")
     public Optional<JoinedCollege> getJoinedStudentById(Long id) {
         return joinedCollegeRepository.findById(id);
     }
 
+    @SuppressWarnings("null")
     public JoinedCollege createJoinedStudent(JoinedCollege joinedCollege) {
         return joinedCollegeRepository.save(joinedCollege);
     }
 
+    @SuppressWarnings("null")
     public void deleteJoinedStudent(Long id) {
         joinedCollegeRepository.deleteById(id);
     }
@@ -35,6 +38,7 @@ public class JoinedCollegeService {
         return joinedCollegeRepository.findByName(name);
     }
 
+    @SuppressWarnings("null")
     public JoinedCollege updateStudent(Long id, JoinedCollege joinedCollege) {
         Optional<JoinedCollege> updateStudentEntity = joinedCollegeRepository.findById(id);
         if (updateStudentEntity.isPresent()) {

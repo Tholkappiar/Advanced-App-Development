@@ -29,32 +29,37 @@ public class PaymentController {
     private PaymentService paymentService;
 
     @GetMapping("/allPayments")
-    @PreAuthorize("hasAuthority('USER')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public List<PaymentEntity> getAllPayments() {
         return paymentService.getAllPayments();
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('USER')")
     public Optional<PaymentEntity> getPaymentById(@PathVariable Long id) {
         return paymentService.getPaymentById(id);
     }
 
     @PostMapping
+    @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('USER')")
     public PaymentEntity createPayment(@RequestBody PaymentEntity paymentEntity) {
         return paymentService.createPayment(paymentEntity);
     }
 
     @DeleteMapping("/deletePayment/{id}")
+    @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('USER')")
     public void deletePayment(@PathVariable Long id) {
         paymentService.deletePayment(id);
     }
 
     @GetMapping("/getPayment/{name}")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public List<PaymentEntity> getPaymentByName(@PathVariable String name) {
         return paymentService.getPaymentByName(name);
     }
 
     @PutMapping("/updatePayment/{id}")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public PaymentEntity updateUser(@PathVariable Long id, @RequestBody PaymentDTO paymentDTO) {
         return paymentService.updatePayment(id, paymentDTO);
     }

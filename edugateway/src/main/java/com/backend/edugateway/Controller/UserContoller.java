@@ -37,7 +37,6 @@ public class UserContoller {
     }
 
     @PostMapping
-    @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('USER')")
     public UserEntity createSignup(@RequestBody UserEntity signup) {
         return userService.createSignup(signup);
     }

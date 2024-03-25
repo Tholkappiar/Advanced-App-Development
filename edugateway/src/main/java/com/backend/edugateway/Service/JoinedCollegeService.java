@@ -26,6 +26,11 @@ public class JoinedCollegeService {
 
     @SuppressWarnings("null")
     public JoinedCollege createJoinedStudent(JoinedCollege joinedCollege) {
+        joinedCollege.setName(joinedCollege.getName().toLowerCase().trim());
+        joinedCollege.setEmail(joinedCollege.getEmail().trim());
+        joinedCollege.setCollege(joinedCollege.getCollege().toLowerCase().trim());
+        joinedCollege.setCourse(joinedCollege.getCourse().toLowerCase().trim());
+        joinedCollege.setDate(joinedCollege.getDate().toLowerCase().trim());
         return joinedCollegeRepository.save(joinedCollege);
     }
 
@@ -43,11 +48,11 @@ public class JoinedCollegeService {
         Optional<JoinedCollege> updateStudentEntity = joinedCollegeRepository.findById(id);
         if (updateStudentEntity.isPresent()) {
             JoinedCollege existingJoinedStudent = updateStudentEntity.get();
-            existingJoinedStudent.setName(joinedCollege.getName());
-            existingJoinedStudent.setEmail(joinedCollege.getEmail());
-            existingJoinedStudent.setCollege(joinedCollege.getCollege());
-            existingJoinedStudent.setCourse(joinedCollege.getCourse());
-            existingJoinedStudent.setDate(joinedCollege.getDate());
+            existingJoinedStudent.setName(joinedCollege.getName().toLowerCase().trim());
+            existingJoinedStudent.setEmail(joinedCollege.getEmail().trim());
+            existingJoinedStudent.setCollege(joinedCollege.getCollege().toLowerCase().trim());
+            existingJoinedStudent.setCourse(joinedCollege.getCourse().toLowerCase().trim());
+            existingJoinedStudent.setDate(joinedCollege.getDate().toLowerCase().trim());
             return joinedCollegeRepository.save(existingJoinedStudent);
         }
         return null;

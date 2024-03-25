@@ -26,6 +26,10 @@ public class PaymentService {
 
     @SuppressWarnings("null")
     public PaymentEntity createPayment(PaymentEntity joinedCollege) {
+        joinedCollege.setName(joinedCollege.getName().toLowerCase().trim());
+        joinedCollege.setCourses(joinedCollege.getCourses().toLowerCase().trim());
+        joinedCollege.setDate(joinedCollege.getDate().toLowerCase().trim());
+        joinedCollege.setStatus(joinedCollege.getStatus().toLowerCase().trim());
         return paymentRepository.save(joinedCollege);
     }
 
@@ -43,10 +47,10 @@ public class PaymentService {
         Optional<PaymentEntity> updatePaymentEntity = paymentRepository.findById(id);
         if (updatePaymentEntity.isPresent()) {
             PaymentEntity updatedPaymentEntity = updatePaymentEntity.get();
-            updatedPaymentEntity.setCourses(paymentDTO.getCourses());
-            updatedPaymentEntity.setAddress(paymentDTO.getAddress());
-            updatedPaymentEntity.setDate(paymentDTO.getDate());
-            updatedPaymentEntity.setStatus(paymentDTO.getStatus());
+            updatedPaymentEntity.setCourses(paymentDTO.getCourses().toLowerCase().trim());
+            updatedPaymentEntity.setAddress(paymentDTO.getAddress().toLowerCase().trim());
+            updatedPaymentEntity.setDate(paymentDTO.getDate().toLowerCase().trim());
+            updatedPaymentEntity.setStatus(paymentDTO.getStatus().toLowerCase().trim());
             return paymentRepository.save(updatedPaymentEntity);
         }
         return null;

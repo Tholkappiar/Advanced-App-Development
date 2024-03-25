@@ -28,6 +28,10 @@ public class UserService {
     }
 
     public UserEntity createSignup(UserEntity signup) {
+        signup.setName(signup.getName().toLowerCase().trim());
+        signup.setEmail(signup.getEmail().trim());
+        signup.setPassword(signup.getPassword().trim());
+        signup.setRoles(signup.getRoles().toUpperCase().trim());
         signup.setPassword(passwordEncoder.encode(signup.getPassword()));
         return userRepository.save(signup);
     }
@@ -46,8 +50,8 @@ public class UserService {
         Optional<UserEntity> userEntity = userRepository.findById(id);
         if (userEntity.isPresent()) {
             UserEntity existingUser = userEntity.get();
-            existingUser.setEmail(updatedUserEntity.getEmail());
-            existingUser.setName(updatedUserEntity.getName());
+            existingUser.setEmail(updatedUserEntity.getEmail().trim());
+            existingUser.setName(updatedUserEntity.getName().toLowerCase().trim());
             existingUser.setPassword(updatedUserEntity.getPassword());
             return userRepository.save(existingUser);
         }

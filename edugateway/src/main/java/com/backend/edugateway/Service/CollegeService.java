@@ -26,6 +26,9 @@ public class CollegeService {
 
     @SuppressWarnings("null")
     public CollegeEntity createCollege(CollegeEntity collegeEntity) {
+        collegeEntity.setCollegeName(collegeEntity.getCollegeName().toLowerCase().trim());
+        collegeEntity.setCourses(collegeEntity.getCourses().toLowerCase().trim());
+        collegeEntity.setAddr(collegeEntity.getAddr().toLowerCase().trim());
         return collegeRepository.save(collegeEntity);
     }
 
@@ -43,9 +46,9 @@ public class CollegeService {
         Optional<CollegeEntity> updateCollegeEntity = collegeRepository.findById(id);
         if (updateCollegeEntity.isPresent()) {
             CollegeEntity existingCollege = updateCollegeEntity.get();
-            existingCollege.setCollegeName(collegeEntity.getCollegeName());
-            existingCollege.setCourses(collegeEntity.getCourses());
-            existingCollege.setAddr(collegeEntity.getAddr());
+            existingCollege.setCollegeName(collegeEntity.getCollegeName().toLowerCase().trim());
+            existingCollege.setCourses(collegeEntity.getCourses().toLowerCase().trim());
+            existingCollege.setAddr(collegeEntity.getAddr().toLowerCase().trim());
             return collegeRepository.save(existingCollege);
         }
         return null;

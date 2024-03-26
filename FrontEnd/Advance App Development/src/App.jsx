@@ -13,6 +13,7 @@ import MakePayment from "./Pages/User/Payment/MakePaymenet";
 import { Suspense, lazy } from "react";
 import AdminDashboard from "./Pages/Admin/AdminDashboard";
 import AdminLogin from "./Pages/Admin/Admin Login/AdminLogin";
+import PrivateRoute from "./Pages/PrivateRoute/PrivateRoute";
 
 const Card = lazy(() => import("./Forms/Cards"));
 
@@ -26,7 +27,12 @@ function App() {
 					<Route path="/sign" element={<Signup />}></Route>
 					<Route path="/login" element={<LoginForm />}></Route>
 					<Route path="/adminLogin" element={<AdminLogin />}></Route>
-					<Route path="/dash" element={<UserDashBoard />}></Route>
+
+					<Route
+						path="/dash"
+						element={<PrivateRoute Component={UserDashBoard} />}
+					></Route>
+
 					<Route path="/adminDash" element={<AdminDashboard />}></Route>
 					<Route path="/courses" element={<JoinedCourses />}></Route>
 					<Route path="/form" element={<Enrollment />}></Route>

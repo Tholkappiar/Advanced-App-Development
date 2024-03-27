@@ -4,7 +4,7 @@ import { useState } from "react";
 // is rendered.
 const PrivateRoute = ({ Component }) => {
 	// The authentication logic or , use context or Redux
-	const [auth, setAuth] = useState(false);
+	const [auth, setAuth] = useState(true);
 	// Conditional rendering the component based on the login status
 	return auth ? <Component /> : <h1>Not have the Auth !</h1>;
 };

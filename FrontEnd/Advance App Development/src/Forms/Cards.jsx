@@ -40,7 +40,7 @@ const data = [
 
 const Cards = () => {
 	return (
-		<div className="flex justify-around bg-[#F9F5EB] flex-wrap h-[100vh] py-10">
+		<div className="flex justify-around bg-[#F9F5EB] flex-wrap h-[100%] py-10">
 			{data.map((college) => (
 				<div
 					key={college.name}

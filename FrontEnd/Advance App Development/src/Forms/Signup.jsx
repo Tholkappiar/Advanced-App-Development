@@ -1,13 +1,17 @@
 import { Link, useNavigate } from "react-router-dom";
 import black_logo from "../assets/images/black-logo.png";
 import { useState } from "react";
+import { API_BASE_URL, API_ENDPOINTS } from "../utils/Constants";
+import axios from "axios";
 
 const Signup = () => {
 	const navigate = useNavigate();
+
 	const [formData, setFormData] = useState({
+		name: "",
 		email: "",
 		password: "",
-		password2: "",
+		roles: "USER",
 	});
 
 	const handleChange = (e) => {
@@ -23,17 +27,32 @@ const Signup = () => {
 		// For example, check if passwords match
 
 		// Store form data in localStorage
-		localStorage.setItem("signupData", JSON.stringify(formData));
-		localStorage.setItem("person", "user");
 
-		// Optionally, you can clear the form fields after submission
-		setFormData({
-			email: "",
-			password: "",
-			password2: "",
-			person: "user",
-		});
-		navigate("/login");
+		try {
+			const handleSignup = async () => {
+				const signupResponse = await axios.post(
+					API_BASE_URL + API_ENDPOINTS.userController.signUp,
+					formData
+				);
+				localStorage.setItem("signupData", JSON.stringify(signupResponse));
+				localStorage.setItem("person", "user");
+				if (signupResponse.status === 201) {
+					console.log("created");
+				}
+			};
+			handleSignup();
+		} catch (error) {
+			console.log(error);
+		}
+
+		// Optionally, you clear the form fields after submission
+		// setFormData({
+		// 	email: "",
+		// 	password: "",
+		// 	password2: "",
+		// 	person: "user",
+		// });
+		// navigate("/login");
 	};
 
 	return (
@@ -52,6 +71,26 @@ const Signup = () => {
 
 				<div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
 					<form className="space-y-6" onSubmit={handleSubmit} method="POST">
+						<div>
+							<label
+								htmlFor="name"
+								className="block text-sm font-medium leading-6 text-gray-900"
+							>
+								Name
+							</label>
+							<div className="mt-2">
+								<input
+									id="name"
+									name="name"
+									type="text"
+									autoComplete="name"
+									required
+									value={formData.name}
+									onChange={handleChange}
+									className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 p-2 outline-none"
+								/>
+							</div>
+						</div>
 						<div>
 							<label
 								htmlFor="email"
@@ -101,39 +140,6 @@ const Signup = () => {
 									autoComplete="current-password"
 									required
 									value={formData.password}
-									onChange={handleChange}
-									className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 p-2 outline-none"
-								/>
-							</div>
-						</div>
-
-						<div>
-							<div className="flex items-center justify-between">
-								<label
-									htmlFor="password2"
-									className="block text-sm font-medium leading-6 text-gray-900"
-								>
-									Confirm Password
-								</label>
-
-								{/* This is for the forgot password  */}
-								{/* <div className="text-sm">
-								<a
-									href="#"
-									className="font-semibold text-indigo-600 hover:text-indigo-500"
-								>
-									Forgot password?
-								</a>
-							</div> */}
-							</div>
-							<div className="mt-2">
-								<input
-									id="password2"
-									name="password2"
-									type="password"
-									autoComplete="current-password"
-									required
-									value={formData.password2}
 									onChange={handleChange}
 									className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 p-2 outline-none"
 								/>

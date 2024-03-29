@@ -1,6 +1,8 @@
 import { useState } from "react";
 import black_logo from "../assets/images/black-logo.png";
 import { Link, useNavigate } from "react-router-dom";
+import { API_BASE_URL, API_ENDPOINTS } from "../utils/Constants";
+import axios from "axios";
 
 export default function LoginForm() {
 	const navigate = useNavigate();
@@ -18,7 +20,22 @@ export default function LoginForm() {
 	};
 
 	const handleLogin = (e) => {
+		console.log(formData);
 		e.preventDefault();
+
+		try {
+			const login_response = async () => {
+				const res = await axios.post(
+					API_BASE_URL + API_ENDPOINTS.authenticationController.authenticate,
+					formData
+				);
+				console.log(res.data);
+				localStorage.setItem("JWT", res.data);
+			};
+			login_response();
+		} catch (error) {
+			console.log(error);
+		}
 
 		const storedSignupData = JSON.parse(localStorage.getItem("signupData"));
 

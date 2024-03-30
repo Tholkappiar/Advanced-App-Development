@@ -29,26 +29,22 @@ export default function LoginForm() {
 					API_BASE_URL + API_ENDPOINTS.authenticationController.authenticate,
 					formData
 				);
-				console.log(res.data);
-				localStorage.setItem("JWT", res.data);
+				if (res.status === 200) {
+					localStorage.setItem("isLoggedIn", true);
+					localStorage.setItem("JWT", res.data);
+					navigate("/dash");
+				}
+				// console.log(res.data);
 			};
 			login_response();
 		} catch (error) {
 			console.log(error);
 		}
 
-		const storedSignupData = JSON.parse(localStorage.getItem("signupData"));
-
-		const { email, password } = formData;
-		if (
-			email === storedSignupData.email &&
-			password === storedSignupData.password
-		) {
-			localStorage.setItem("isLoggedIn", true);
-			navigate("/dash");
-		} else {
-			alert("Invalid email or password");
-		}
+		/**
+		 *  TODO: implement a feat , if the user is already logged in
+		 * 		  navigate to the dashboard
+		 */
 	};
 
 	return (

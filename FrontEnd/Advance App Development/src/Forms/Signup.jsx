@@ -23,11 +23,9 @@ const Signup = () => {
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		// Add validation logic here if needed
-		// For example, check if passwords match
+		// todo:  Add validation logic here if needed
 
 		// Store form data in localStorage
-
 		try {
 			const handleSignup = async () => {
 				const signupResponse = await axios.post(
@@ -36,8 +34,8 @@ const Signup = () => {
 				);
 				localStorage.setItem("signupData", JSON.stringify(signupResponse));
 				localStorage.setItem("person", "user");
-				if (signupResponse.status === 201) {
-					console.log("created");
+				if (signupResponse.status === 200) {
+					navigate("/login");
 				}
 			};
 			handleSignup();

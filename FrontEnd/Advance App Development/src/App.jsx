@@ -13,7 +13,7 @@ import MakePayment from "./Pages/User/Payment/MakePaymenet";
 import { Suspense, lazy } from "react";
 import AdminDashboard from "./Pages/Admin/AdminDashboard";
 import AdminLogin from "./Pages/Admin/Admin Login/AdminLogin";
-import PrivateRoute from "./Pages/PrivateRoute/PrivateRoute";
+import PrivateRoute from "./Pages/AuthManager/PrivateRoute";
 
 const Card = lazy(() => import("./Forms/Cards"));
 

@@ -32,8 +32,6 @@ const Signup = () => {
 					API_BASE_URL + API_ENDPOINTS.userController.signUp,
 					formData
 				);
-				localStorage.setItem("signupData", JSON.stringify(signupResponse));
-				localStorage.setItem("person", "user");
 				if (signupResponse.status === 200) {
 					navigate("/login");
 				}

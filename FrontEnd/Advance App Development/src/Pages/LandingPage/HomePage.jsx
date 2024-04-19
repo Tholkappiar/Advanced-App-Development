@@ -5,14 +5,14 @@ import Hero from "./Hero";
 import ContentSection from "./ContentSection";
 import Footer from "./Footer";
 import { useEffect } from "react";
-import axiosInstance from "../../utils/axiosInstance";
-import { API_ENDPOINTS } from "../../utils/Constants";
+import { API_BASE_URL, API_ENDPOINTS } from "../../utils/Constants";
+import axios from "axios";
 
 const HomePage = () => {
 	useEffect(() => {
 		const fetachData = async () => {
-			const { data } = await axiosInstance.get(
-				API_ENDPOINTS.userController.getAllSignups
+			const { data } = await axios.get(
+				API_BASE_URL + API_ENDPOINTS.userController.getAllSignups
 			);
 			console.log(data);
 		};

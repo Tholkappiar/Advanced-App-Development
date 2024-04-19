@@ -1,4 +1,18 @@
+import { useEffect } from "react";
+import axiosInstance from "../../utils/axiosInstance";
+import { API_ENDPOINTS } from "../../utils/Constants";
+
 export default function Profile() {
+	useEffect(() => {
+		const fetchData = async () => {
+			const { data } = await axiosInstance.get(
+				API_ENDPOINTS.userController.getUserByEmail("user@gmail.com")
+			);
+			console.log(data);
+		};
+		fetchData();
+	}, []);
+
 	return (
 		<div className="py-20 bg-[#F9F5EB] h-[100vh]">
 			<div className="flex justify-around ">

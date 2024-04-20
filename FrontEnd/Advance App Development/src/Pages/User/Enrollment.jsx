@@ -1,7 +1,52 @@
 import { UserCircleIcon } from "@heroicons/react/24/solid";
-import { Link } from "react-router-dom";
+import { useState } from "react";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import axiosInstance from "../../utils/axiosInstance";
+import { API_ENDPOINTS } from "../../utils/Constants";
 
 const Enrollment = () => {
+	const { collegeName, courseName } = useParams();
+
+	const navigate = useNavigate();
+
+	const [formData, setFormData] = useState({
+		name: "",
+		fatherName: "",
+		email: "",
+		gender: "",
+		mobile: "",
+		dob: "",
+		age: "",
+		sslc: "",
+		hsc: "",
+		country: "India",
+		address: "",
+		collegeName: collegeName,
+		courseName: courseName,
+	});
+
+	const handleChange = (e) => {
+		setFormData({
+			...formData,
+			[e.target.name]: e.target.value,
+		});
+	};
+
+	const handleSubmit = async (e) => {
+		e.preventDefault();
+		try {
+			const response = await axiosInstance.post(
+				API_ENDPOINTS.enrollCourseController.enrollStudent,
+				formData
+			);
+			if (response.status === 200) {
+				navigate("/makePayment");
+			}
+		} catch (error) {
+			console.error("Error submitting form:", error);
+		}
+	};
+
 	return (
 		<div className="flex justify-around bg-[#F9F5EB]">
 			<form className="w-6/12 py-12">
@@ -26,6 +71,7 @@ const Enrollment = () => {
 								<UserCircleIcon
 									className="h-12 w-12 text-white"
 									aria-hidden="true"
+									id="photo"
 								/>
 								<button
 									type="button"
@@ -39,16 +85,18 @@ const Enrollment = () => {
 							<div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
 								<div className="sm:col-span-3">
 									<label
-										htmlFor="first-name"
+										htmlFor="name"
 										className="block text-sm font-medium leading-6 text-gray-900"
 									>
 										Name
 									</label>
 									<div className="mt-2">
 										<input
+											value={formData.name}
+											onChange={handleChange}
 											type="text"
-											name="first-name"
-											id="first-name"
+											name="name"
+											id="name"
 											autoComplete="given-name"
 											className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 p-2"
 										/>
@@ -57,16 +105,18 @@ const Enrollment = () => {
 
 								<div className="sm:col-span-3">
 									<label
-										htmlFor="last-name"
+										htmlFor="father"
 										className="block text-sm font-medium leading-6 text-gray-900"
 									>
 										Father Name
 									</label>
 									<div className="mt-2">
 										<input
+											value={formData.fatherName}
+											onChange={handleChange}
 											type="text"
-											name="last-name"
-											id="last-name"
+											name="fatherName"
+											id="father"
 											autoComplete="family-name"
 											className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 p-2"
 										/>
@@ -82,6 +132,8 @@ const Enrollment = () => {
 									</label>
 									<div className="mt-2">
 										<input
+											value={formData.email}
+											onChange={handleChange}
 											id="email"
 											name="email"
 											type="email"
@@ -100,6 +152,8 @@ const Enrollment = () => {
 									</label>
 									<div className="mt-2">
 										<input
+											value={formData.gender}
+											onChange={handleChange}
 											type="text"
 											name="gender"
 											id="gender"
@@ -117,6 +171,8 @@ const Enrollment = () => {
 									</label>
 									<div className="mt-2">
 										<input
+											value={formData.mobile}
+											onChange={handleChange}
 											type="number"
 											name="mobile"
 											pattern="[0-9]{10}"
@@ -137,6 +193,8 @@ const Enrollment = () => {
 									</label>
 									<div className="mt-2">
 										<input
+											value={formData.dob}
+											onChange={handleChange}
 											type="date"
 											name="dob"
 											id="dob"
@@ -155,7 +213,11 @@ const Enrollment = () => {
 									</label>
 									<div className="mt-2">
 										<input
-											type="text"
+											value={formData.age}
+											onChange={handleChange}
+											type="number"
+											min={10}
+											max={100}
 											name="age"
 											id="age"
 											autoComplete="age"
@@ -174,6 +236,8 @@ const Enrollment = () => {
 										</label>
 										<div className="mt-2">
 											<input
+												value={formData.sslc}
+												onChange={handleChange}
 												type="number"
 												min={0}
 												max={100}
@@ -194,6 +258,8 @@ const Enrollment = () => {
 										</label>
 										<div className="mt-2">
 											<input
+												value={formData.hsc}
+												onChange={handleChange}
 												type="number"
 												min={0}
 												max={100}
@@ -215,12 +281,14 @@ const Enrollment = () => {
 									</label>
 									<div className="mt-2">
 										<select
+											value={formData.country}
+											onChange={handleChange}
 											id="country"
 											name="country"
 											autoComplete="country-name"
 											className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6 p-2"
 										>
-											<option>United States</option>
+											<option>India</option>
 											<option>Canada</option>
 											<option>Mexico</option>
 										</select>
@@ -229,71 +297,19 @@ const Enrollment = () => {
 
 								<div className="col-span-full">
 									<label
-										htmlFor="street-address"
+										htmlFor="address"
 										className="block text-sm font-medium leading-6 text-gray-900"
 									>
 										Address
 									</label>
 									<div className="mt-2">
 										<input
+											value={formData.address}
+											onChange={handleChange}
 											type="text"
-											name="street-address"
-											id="street-address"
-											autoComplete="street-address"
-											className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 p-2"
-										/>
-									</div>
-								</div>
-
-								<div className="sm:col-span-2 sm:col-start-1">
-									<label
-										htmlFor="city"
-										className="block text-sm font-medium leading-6 text-gray-900"
-									>
-										City
-									</label>
-									<div className="mt-2">
-										<input
-											type="text"
-											name="city"
-											id="city"
-											autoComplete="address-level2"
-											className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 p-2"
-										/>
-									</div>
-								</div>
-
-								<div className="sm:col-span-2">
-									<label
-										htmlFor="region"
-										className="block text-sm font-medium leading-6 text-gray-900"
-									>
-										State / Province
-									</label>
-									<div className="mt-2">
-										<input
-											type="text"
-											name="region"
-											id="region"
-											autoComplete="address-level1"
-											className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 p-2"
-										/>
-									</div>
-								</div>
-
-								<div className="sm:col-span-2">
-									<label
-										htmlFor="postal-code"
-										className="block text-sm font-medium leading-6 text-gray-900"
-									>
-										ZIP / Postal code
-									</label>
-									<div className="mt-2">
-										<input
-											type="text"
-											name="postal-code"
-											id="postal-code"
-											autoComplete="postal-code"
+											name="address"
+											id="address"
+											autoComplete="address"
 											className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 p-2"
 										/>
 									</div>
@@ -302,24 +318,23 @@ const Enrollment = () => {
 						</div>
 					</div>
 				</div>
+				<div className="mt-6 flex items-center justify-end gap-x-6">
+					<Link to={"/makePayment"}>
+						<button
+							type="button"
+							className="text-sm font-semibold leading-6 text-gray-900"
+						>
+							Cancel
+						</button>
+					</Link>
 
-				<Link
-					to={"/makePayment"}
-					className="mt-6 flex items-center justify-end gap-x-6"
-				>
 					<button
-						type="button"
-						className="text-sm font-semibold leading-6 text-gray-900"
-					>
-						Cancel
-					</button>
-					<button
-						// type="submit"
+						onClick={handleSubmit}
 						className="rounded-md bg-[#EA5455] px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-[#e36a6af2] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 p-2"
 					>
 						Save
 					</button>
-				</Link>
+				</div>
 			</form>
 		</div>
 	);

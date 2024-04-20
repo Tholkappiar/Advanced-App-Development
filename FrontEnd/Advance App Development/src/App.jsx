@@ -35,7 +35,10 @@ function App() {
 
 					<Route path="/adminDash" element={<AdminDashboard />}></Route>
 					<Route path="/courses" element={<JoinedCourses />}></Route>
-					<Route path="/form" element={<Enrollment />}></Route>
+					<Route
+						path="/form/:collegeName/:courseName"
+						element={<Enrollment />}
+					/>
 					<Route
 						path="/card"
 						element={

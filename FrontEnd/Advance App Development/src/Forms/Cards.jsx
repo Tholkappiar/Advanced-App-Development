@@ -45,9 +45,11 @@ const Cards = () => {
 								{college.Number}
 							</div> */}
 							<div className="flex justify-end">
-								<button className="bg-red-400 rounded-lg h-[30px] w-[60px] m-2">
-									Enroll
-								</button>
+								<Link to={`/form/${college.collegeName}/${college.courses}`}>
+									<button className="bg-red-400 rounded-lg h-[30px] w-[60px] m-2">
+										Enroll
+									</button>
+								</Link>
 							</div>
 						</div>
 					</div>

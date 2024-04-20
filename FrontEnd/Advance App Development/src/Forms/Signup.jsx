@@ -11,6 +11,9 @@ const Signup = () => {
 		name: "",
 		email: "",
 		password: "",
+		number: "",
+		sslc: "",
+		hsc: "",
 		roles: "USER",
 	});
 
@@ -53,7 +56,7 @@ const Signup = () => {
 
 	return (
 		<div className="flex items-center">
-			<div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8  mt-[100px] w-6/12">
+			<div className="flex min-h-full flex-1 flex-col justify-center px-6 py-10 lg:px-8 w-6/12">
 				<div className="sm:mx-auto sm:w-full sm:max-w-sm">
 					<img
 						className="mx-auto h-[62px] w-auto"
@@ -89,12 +92,71 @@ const Signup = () => {
 						</div>
 						<div>
 							<label
+								htmlFor="mobile"
+								className="block text-sm font-medium leading-6 text-gray-900"
+							>
+								Mobile
+							</label>
+							{/* TODO: use the classic blue and white color palette */}
+							<div className="mt-2">
+								<input
+									id="mobile"
+									name="number"
+									type="tel"
+									autoComplete="mobile"
+									required
+									value={formData.number}
+									onChange={handleChange}
+									className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 p-2 outline-none"
+								/>
+							</div>
+						</div>
+						<div>
+							<label
+								htmlFor="sslc"
+								className="block text-sm font-medium leading-6 text-gray-900"
+							>
+								SSLC %
+							</label>
+							<div className="mt-2">
+								<input
+									id="sslc"
+									name="sslc"
+									type="text"
+									required
+									value={formData.sslc}
+									onChange={handleChange}
+									className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 p-2 outline-none"
+								/>
+							</div>
+						</div>
+						<div>
+							<label
+								htmlFor="hsc"
+								className="block text-sm font-medium leading-6 text-gray-900"
+							>
+								HSC %
+							</label>
+							{/* TODO: use the classic blue and white color palette */}
+							<div className="mt-2">
+								<input
+									id="hsc"
+									name="hsc"
+									type="text"
+									required
+									value={formData.hsc}
+									onChange={handleChange}
+									className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 p-2 outline-none"
+								/>
+							</div>
+						</div>
+						<div>
+							<label
 								htmlFor="email"
 								className="block text-sm font-medium leading-6 text-gray-900"
 							>
 								Email address
 							</label>
-							{/* TODO: use the classic blue and white color palette */}
 							<div className="mt-2">
 								<input
 									id="email"
@@ -108,7 +170,6 @@ const Signup = () => {
 								/>
 							</div>
 						</div>
-
 						<div>
 							<div className="flex items-center justify-between">
 								<label

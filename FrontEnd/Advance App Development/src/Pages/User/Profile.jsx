@@ -1,14 +1,25 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import axiosInstance from "../../utils/axiosInstance";
 import { API_ENDPOINTS } from "../../utils/Constants";
 
 export default function Profile() {
+	const [userData, setUserData] = useState([]);
 	useEffect(() => {
 		const fetchData = async () => {
-			const { data } = await axiosInstance.get(
-				API_ENDPOINTS.userController.getUserByEmail("user@gmail.com")
+			const userEmail = await axiosInstance.get(
+				API_ENDPOINTS.userController.getUserEmail
+			);
+			const { data } = await axiosInstance.post(
+				API_ENDPOINTS.userController.getUserByEmail,
+				userEmail.data,
+				{
+					headers: {
+						"Content-Type": "text/plain",
+					},
+				}
 			);
 			console.log(data);
+			setUserData(data);
 		};
 		fetchData();
 	}, []);
@@ -32,7 +43,7 @@ export default function Profile() {
 									Full name
 								</dt>
 								<dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
-									Margot Foster
+									{userData.name}
 								</dd>
 							</div>
 							<div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
@@ -40,7 +51,7 @@ export default function Profile() {
 									Mobile
 								</dt>
 								<dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
-									1234567890
+									{userData.number}
 								</dd>
 							</div>
 							<div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
@@ -48,7 +59,7 @@ export default function Profile() {
 									Email address
 								</dt>
 								<dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
-									margotfoster@example.com
+									{userData.email}
 								</dd>
 							</div>
 							<div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
@@ -56,7 +67,7 @@ export default function Profile() {
 									SSLC
 								</dt>
 								<dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
-									88 %
+									{userData.sslc}
 								</dd>
 							</div>
 							<div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
@@ -64,7 +75,7 @@ export default function Profile() {
 									HSC
 								</dt>
 								<dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
-									87 %
+									{userData.hsc}
 								</dd>
 							</div>
 						</dl>

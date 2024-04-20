@@ -10,5 +10,5 @@ import com.backend.edugateway.Entity.UserEntity;
 public interface UserRepository extends JpaRepository<UserEntity, Long> {
     List<UserEntity> findAllByName(String name);
 
-    Optional<UserEntity> findByEmail(String username);
+    Optional<UserEntity> findByEmail(String email);
 }

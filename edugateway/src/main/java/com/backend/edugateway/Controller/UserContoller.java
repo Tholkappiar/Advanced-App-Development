@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.backend.edugateway.Entity.UserEntity;
 import com.backend.edugateway.Service.UserService;
 
@@ -47,10 +46,16 @@ public class UserContoller {
         userService.deleteSignup(id);
     }
 
-    @GetMapping("/user/{name}")
-    @PreAuthorize("hasAuthority('ADMIN')")
+    @GetMapping("/username/{name}")
+    @PreAuthorize("hasAuthority('USER')")
     public List<UserEntity> getByName(@PathVariable String name) {
         return userService.getByName(name);
+    }
+
+    @PostMapping("/user")
+    @PreAuthorize("hasAuthority('USER')")
+    public Optional<UserEntity> getUserByEmail(@RequestBody String email) {
+        return userService.getUserByEmail(email);
     }
 
     @PutMapping("/user/{id}")

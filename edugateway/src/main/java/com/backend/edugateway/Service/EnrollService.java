@@ -27,16 +27,6 @@ public class EnrollService {
 
     @SuppressWarnings("null")
     public EnrollEntity createEnrollment(EnrollEntity enrollEntity) {
-        enrollEntity.setName(enrollEntity.getName().toLowerCase().trim());
-        enrollEntity.setEmail(enrollEntity.getEmail().trim());
-        enrollEntity.setGender(enrollEntity.getGender().toLowerCase().trim());
-        enrollEntity.setMobile(enrollEntity.getMobile().toLowerCase().trim());
-        enrollEntity.setDob(enrollEntity.getDob().toLowerCase().trim());
-        enrollEntity.setSslc(enrollEntity.getSslc());
-        enrollEntity.setHsc(enrollEntity.getHsc());
-        enrollEntity.setAge(enrollEntity.getAge());
-        enrollEntity.setCountry(enrollEntity.getCountry().toLowerCase().trim());
-        enrollEntity.setAddress(enrollEntity.getAddress().toLowerCase().trim());
         return enrollRepository.save(enrollEntity);
     }
 

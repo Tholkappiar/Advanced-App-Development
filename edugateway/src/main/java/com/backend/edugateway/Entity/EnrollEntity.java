@@ -16,13 +16,16 @@ public class EnrollEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
+    private String fatherName;
     private String email;
     private String gender;
     private String mobile;
     private String dob;
+    private Integer age;
     private Integer sslc;
     private Integer hsc;
-    private Integer age;
     private String country;
     private String address;
+    private String collegeName;
+    private String courseName;
 }

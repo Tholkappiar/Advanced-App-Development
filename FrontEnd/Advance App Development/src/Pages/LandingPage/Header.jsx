@@ -1,17 +1,56 @@
 import { Link, useNavigate } from "react-router-dom";
 import white_logo from "../../assets/images/white-logo.png";
+import { useEffect, useState } from "react";
+import axiosInstance from "../../utils/axiosInstance";
+import { API_ENDPOINTS } from "../../utils/Constants";
 
 const Header = () => {
 	const navigate = useNavigate();
 
 	const logout = () => {
 		localStorage.clear();
+		setUserData(null);
 		navigate("/");
 	};
 
 	const navigator = (path) => {
 		navigate(path);
 	};
+
+	const jwt = localStorage.getItem("JWT");
+
+	const [userData, setUserData] = useState(null);
+	useEffect(() => {
+		const fetchData = async () => {
+			try {
+				const userEmail = await axiosInstance.get(
+					API_ENDPOINTS.userController.getUserEmail
+				);
+				const { data } = await axiosInstance.post(
+					API_ENDPOINTS.userController.getUserByEmail,
+					userEmail.data,
+					{
+						headers: {
+							"Content-Type": "text/plain",
+						},
+					}
+				);
+				setUserData(data);
+				console.log("userData", userData);
+			} catch (error) {
+				console.error("Error fetching user data:", error);
+			}
+		};
+
+		if (jwt) {
+			fetchData();
+		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [jwt]);
+
+	if (userData === null && jwt) {
+		return <div>Loading...</div>; // Render loading indicator while fetching data
+	}
 
 	return (
 		<header>
@@ -70,30 +109,30 @@ const Header = () => {
 								</Link>
 							</li>
 
-							{localStorage.getItem("isLoggedIn") && (
-								<>
-									{localStorage.getItem("person") === "user" ? (
-										<li
-											onClick={() => navigator("/dash")}
-											className="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700"
-										>
-											DashBoard
-										</li>
-									) : (
-										<li
-											onClick={() => navigator("/adminDash")}
-											className="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700"
-										>
-											Admin DashBoard
-										</li>
-									)}
-									<li
-										onClick={() => navigator("/profile")}
-										className="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700"
-									>
-										Profile
-									</li>
-								</>
+							{userData && userData.roles === "USER" && (
+								<li
+									onClick={() => navigator("/dash")}
+									className="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700"
+								>
+									DashBoard
+								</li>
+							)}
+
+							{userData && userData.roles === "ADMIN" && (
+								<li
+									onClick={() => navigator("/adminDash")}
+									className="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700"
+								>
+									Admin DashBoard
+								</li>
+							)}
+							{jwt && (
+								<li
+									onClick={() => navigator("/profile")}
+									className="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700"
+								>
+									Profile
+								</li>
 							)}
 						</ul>
 					</div>

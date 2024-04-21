@@ -53,7 +53,7 @@ public class UserContoller {
     }
 
     @PostMapping("/user")
-    @PreAuthorize("hasAuthority('USER')")
+    @PreAuthorize("hasAuthority('USER') or hasAuthority('ADMIN')")
     public Optional<UserEntity> getUserByEmail(@RequestBody String email) {
         return userService.getUserByEmail(email);
     }

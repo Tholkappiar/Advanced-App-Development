@@ -1,6 +1,8 @@
 import { useState } from "react";
 import black_logo from "../../../assets/images/white-logo.png";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { API_BASE_URL, API_ENDPOINTS } from "../../../utils/Constants";
 
 export default function AdminLogin() {
 	const navigate = useNavigate();
@@ -18,14 +20,25 @@ export default function AdminLogin() {
 	};
 
 	const handleLogin = (e) => {
+		console.log(formData);
 		e.preventDefault();
 
-		const { email, password } = formData;
-		if (email === "admin@gmail.com" && password === "admin") {
-			localStorage.setItem("isLoggedIn", true);
-			navigate("/adminDash");
-		} else {
-			alert("Invalid email or password");
+		try {
+			const login_response = async () => {
+				const res = await axios.post(
+					API_BASE_URL + API_ENDPOINTS.authenticationController.authenticate,
+					formData
+				);
+				if (res.status === 200) {
+					localStorage.setItem("isLoggedIn", true);
+					localStorage.setItem("JWT", res.data);
+					navigate("/");
+				}
+				// console.log(res.data);
+			};
+			login_response();
+		} catch (error) {
+			console.log(error);
 		}
 	};
 

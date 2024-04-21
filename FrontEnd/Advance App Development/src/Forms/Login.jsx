@@ -40,11 +40,6 @@ export default function LoginForm() {
 		} catch (error) {
 			console.log(error);
 		}
-
-		/**
-		 *  TODO: implement a feat , if the user is already logged in
-		 * 		  navigate to the dashboard
-		 */
 	};
 
 	return (

@@ -40,7 +40,7 @@ public class AuthenticationController {
     }
 
     @GetMapping("/userEmail")
-    @PreAuthorize("hasAuthority('USER')")
+    @PreAuthorize("hasAuthority('USER') or hasAuthority('ADMIN')")
     public ResponseEntity<String> getUserInfo(HttpServletRequest request) {
         // Extract token from request header
         String token = jwtService.extractTokenFromHeader(request);

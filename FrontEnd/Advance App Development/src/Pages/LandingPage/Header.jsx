@@ -36,7 +36,6 @@ const Header = () => {
 					}
 				);
 				setUserData(data);
-				console.log("userData", userData);
 			} catch (error) {
 				console.error("Error fetching user data:", error);
 			}
@@ -63,9 +62,9 @@ const Header = () => {
 						<img
 							src={white_logo}
 							className="mr-3 h-8 sm:h-9"
-							alt="Flowbite Logo"
+							alt="EdugateWay"
 						/>
-						<span className="self-center text-xl font-semibold whitespace-nowrap dark:text-white">
+						<span className="self-center text-xl font-semibold whitespace-nowrap text-white">
 							EdugateWay
 						</span>
 					</Link>

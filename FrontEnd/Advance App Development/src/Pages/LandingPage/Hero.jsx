@@ -14,16 +14,14 @@ const Hero = () => {
 				<div className="relative pt-36 ml-auto">
 					<div className="lg:w-2/3 text-center mx-auto">
 						<h1 className="text-gray-900 dark:text-black font-bold text-5xl md:text-6xl xl:text-7xl">
-							Empowering Dreams with Innovation and{" "}
-							<span className="text-primary dark:text-black">
-								reimagination.
-							</span>
+							Empowering Futures with Education and{" "}
+							<span className="text-primary dark:text-black">Innovation.</span>
 						</h1>
 						<p className="mt-8 text-gray-700 dark:text-black">
-							Discover endless possibilities as you embark on your educational
-							journey with Flowbite. Our platform is designed to revolutionize
-							the way you approach college admissions, making the process
-							seamless and rewarding.
+							Explore limitless opportunities as you begin your journey with our
+							college admission portal. Our platform is engineered to transform
+							the way you navigate college admissions, ensuring a smooth and
+							fulfilling experience.
 						</p>
 						<div className="mt-16 flex flex-wrap justify-center gap-y-4 gap-x-6">
 							<Link
@@ -31,7 +29,7 @@ const Hero = () => {
 								className="relative flex h-11 items-center justify-center px-6 before:absolute before:inset-0 before:rounded-full before:bg-primary before:transition before:duration-300 hover:before:scale-105 active:duration-75 active:before:scale-95 sm:w-max bg-[#002B5B] rounded-3xl"
 							>
 								<span className="relative text-base font-semibold text-white">
-									Get started
+									Start Now
 								</span>
 							</Link>
 							<Link
@@ -39,7 +37,7 @@ const Hero = () => {
 								className="relative flex h-11 items-center justify-center px-6 before:absolute before:inset-0 before:rounded-full before:border before:border-transparent before:bg-primary/10 before:bg-gradient-to-b before:transition before:duration-300 hover:before:scale-105 active:duration-75 active:before:scale-95 border-gray-700 bg-[#E4DCCF] sm:w-max rounded-3xl"
 							>
 								<span className="relative text-base font-semibold text-primary text-[#002B5B]">
-									Learn more
+									Discover More
 								</span>
 							</Link>
 						</div>
@@ -49,27 +47,28 @@ const Hero = () => {
 						>
 							<div className="text-left">
 								<h6 className="text-lg font-semibold text-gray-700 dark:text-black">
-									Affordable Excellence
+									Affordable Education
 								</h6>
 								<p className="mt-2 text-gray-500">
-									Experience top-tier education Support.
+									Access top-quality education without financial burden.
 								</p>
 							</div>
 							<div className="text-left">
 								<h6 className="text-lg font-semibold text-gray-700 dark:text-black">
-									Unmatched Speed
+									Efficient Processes
 								</h6>
 								<p className="mt-2 text-gray-500">
-									Navigate the college admission process at unprecedented speed
+									Streamline your college admission journey with our efficient
+									processes.
 								</p>
 							</div>
 							<div className="text-left">
 								<h6 className="text-lg font-semibold text-gray-700 dark:text-black">
-									Community Favorite
+									Community Driven
 								</h6>
 								<p className="mt-2 text-gray-500">
 									{/* eslint-disable-next-line react/no-unescaped-entities */}
-									Join a community that's not just satisfied
+									Join a supportive community dedicated to your success.
 								</p>
 							</div>
 						</div>

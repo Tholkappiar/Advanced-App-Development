@@ -18,7 +18,6 @@ export default function LoginForm() {
 			[e.target.name]: e.target.value,
 		});
 	};
-
 	const handleLogin = (e) => {
 		console.log(formData);
 		e.preventDefault();

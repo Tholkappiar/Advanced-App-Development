@@ -1,80 +1,22 @@
 "use client";
 
-import { Label, Modal, TextInput } from "flowbite-react";
 import { useState } from "react";
+// import { Label, Modal, TextInput } from "flowbite-react";
+// import { useState } from "react";
+import DashBoardModal from "../../Components/Modal";
 
 const AdminDashboard = () => {
-	const [openModal, setOpenModal] = useState(false);
-	const [email, setEmail] = useState("");
+	const [modalOpen, setModalOpen] = useState(false);
 
-	function onCloseModal() {
-		setOpenModal(false);
-		setEmail("");
-	}
+	const handleOpenModal = () => {
+		setModalOpen(true);
+	};
 
+	const handleCloseModal = () => {
+		setModalOpen(false);
+	};
 	return (
 		<div>
-			<Modal show={openModal} size="md" onClose={onCloseModal} popup>
-				<Modal.Header />
-				<Modal.Body>
-					<div className="space-y-6">
-						<h3 className="text-xl font-medium text-gray-900 dark:text-white">
-							Add College
-						</h3>
-						<div>
-							<div className="mb-2 block">
-								<Label htmlFor="email" value="College" />
-							</div>
-							<TextInput
-								id="text"
-								className="p-2"
-								value={email}
-								onChange={(event) => setEmail(event.target.value)}
-								required
-							/>
-							<div className="mb-2 block">
-								<Label htmlFor="email" value="Course" />
-							</div>
-							<TextInput
-								id="text"
-								className="p-2"
-								value={email}
-								onChange={(event) => setEmail(event.target.value)}
-								required
-							/>
-							<div className="mb-2 block">
-								<Label htmlFor="email" value="Address" />
-							</div>
-							<TextInput
-								id="text"
-								className="p-2"
-								value={email}
-								onChange={(event) => setEmail(event.target.value)}
-								required
-							/>
-							<div className="mb-2 block">
-								<Label htmlFor="email" value="Mobile" />
-							</div>
-							<TextInput
-								id="text"
-								className="p-2"
-								value={email}
-								onChange={(event) => setEmail(event.target.value)}
-								required
-							/>
-						</div>
-						<div className="flex justify-between text-sm font-medium text-gray-500 dark:text-gray-300">
-							Not registered?&nbsp;
-							<a
-								href="#"
-								className="text-cyan-700 hover:underline dark:text-cyan-500"
-							>
-								Create account
-							</a>
-						</div>
-					</div>
-				</Modal.Body>
-			</Modal>
 			<section className="bg-[#F9F5EB] p-3 sm:p-5 antialiased h-[95vh]">
 				<div className="mx-auto max-w-screen-xl px-4 lg:px-12">
 					<div className="bg-[#E4DCCF] relative shadow-lg sm:rounded-lg overflow-hidden">
@@ -114,7 +56,7 @@ const AdminDashboard = () => {
 							<div className="w-full md:w-auto flex flex-col md:flex-row space-y-2 md:space-y-0 items-stretch md:items-center justify-end md:space-x-3 flex-shrink-0">
 								<button
 									type="button"
-									onClick={() => setOpenModal(true)}
+									onClick={handleOpenModal}
 									data-hs-overlay="#hs-vertically-centered-modal"
 									className="flex items-center justify-center text-white bg-[#002B5B] hover:bg-[#002a5be3] focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-4 py-2"
 								>
@@ -133,6 +75,12 @@ const AdminDashboard = () => {
 									</svg>
 									Add product
 								</button>
+								{modalOpen && (
+									<DashBoardModal
+										modalStatus={modalOpen}
+										modalClose={handleCloseModal}
+									/>
+								)}
 								<div className="flex items-center space-x-3 w-full md:w-auto">
 									<button
 										id="actionsDropdownButton"

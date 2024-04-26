@@ -1,24 +1,44 @@
 "use client";
 
 import { Label, Modal, TextInput } from "flowbite-react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import axiosInstance from "../utils/axiosInstance";
+import { API_ENDPOINTS } from "../utils/Constants";
 
+// eslint-disable-next-line react/prop-types
 const DashBoardModal = ({ modalStatus, modalClose }) => {
-	const [email, setEmail] = useState("");
-	const [openModal, setOpenModal] = useState(true);
-	// console.log(modalClose);
-	useEffect(() => {
-		setOpenModal(modalStatus);
-	}, [modalStatus]);
+	const [CollegeData, setCollegeData] = useState({
+		collegeName: "",
+		course: "",
+		addr: "",
+		mobile: "",
+		email: "",
+		collegeId: "",
+	});
 
-	function onCloseModal() {
-		setOpenModal(false);
-		modalClose();
-		setEmail("");
-	}
+	// For storing the college data
+	const handleChange = (e) => {
+		const { name, value } = e.target;
+		setCollegeData((prev) => ({
+			...prev,
+			[name]: value,
+		}));
+	};
+
+	// Submiting the college data
+	const handleAddCollegeSubmit = async () => {
+		const response = await axiosInstance.post(
+			API_ENDPOINTS.collegeController.addCollege,
+			CollegeData
+		);
+		if (response.status) {
+			modalClose();
+			window.location.reload();
+		}
+	};
 
 	return (
-		<Modal show={openModal} size="md" onClose={onCloseModal} popup>
+		<Modal show={modalStatus} size="md" onClose={modalClose} popup>
 			<Modal.Header />
 			<Modal.Body>
 				<div className="space-y-6">
@@ -27,54 +47,73 @@ const DashBoardModal = ({ modalStatus, modalClose }) => {
 					</h3>
 					<div>
 						<div className="mb-2 block">
-							<Label htmlFor="email" value="College" />
+							<Label htmlFor="collegeName" value="College Name" />
 						</div>
 						<TextInput
-							id="text"
+							id="collegeName"
 							className="p-2"
-							value={email}
-							onChange={(event) => setEmail(event.target.value)}
+							name="collegeName"
+							onChange={(event) => handleChange(event)}
 							required
 						/>
 						<div className="mb-2 block">
-							<Label htmlFor="email" value="Course" />
+							<Label htmlFor="course" value="Course" />
 						</div>
 						<TextInput
-							id="text"
+							id="course"
 							className="p-2"
-							value={email}
-							onChange={(event) => setEmail(event.target.value)}
+							name="course"
+							onChange={(event) => handleChange(event)}
 							required
 						/>
 						<div className="mb-2 block">
-							<Label htmlFor="email" value="Address" />
+							<Label htmlFor="addr" value="Address" />
 						</div>
 						<TextInput
-							id="text"
+							id="addr"
 							className="p-2"
-							value={email}
-							onChange={(event) => setEmail(event.target.value)}
+							name="addr"
+							onChange={(event) => handleChange(event)}
 							required
 						/>
 						<div className="mb-2 block">
-							<Label htmlFor="email" value="Mobile" />
+							<Label htmlFor="mobile" value="Mobile" />
 						</div>
 						<TextInput
-							id="text"
+							id="mobile"
 							className="p-2"
-							value={email}
-							onChange={(event) => setEmail(event.target.value)}
+							name="mobile"
+							onChange={(event) => handleChange(event)}
+							required
+						/>
+						<div className="mb-2 block">
+							<Label htmlFor="email" value="Email" />
+						</div>
+						<TextInput
+							id="email"
+							className="p-2"
+							name="email"
+							onChange={(event) => handleChange(event)}
+							required
+						/>
+						<div className="mb-2 block">
+							<Label htmlFor="collegeId" value="College Id" />
+						</div>
+						<TextInput
+							id="collegeId"
+							className="p-2"
+							name="collegeId"
+							onChange={(event) => handleChange(event)}
 							required
 						/>
 					</div>
-					<div className="flex justify-between text-sm font-medium text-gray-500 dark:text-gray-300">
-						Not registered?&nbsp;
-						<a
-							href="#"
-							className="text-cyan-700 hover:underline dark:text-cyan-500"
+					<div className="flex justify-center">
+						<button
+							onClick={handleAddCollegeSubmit}
+							className="text-sm font-medium bg-[#002B5B] text-white h-10 w-20 rounded-md shadow-lg"
 						>
-							Create account
-						</a>
+							Save
+						</button>
 					</div>
 				</div>
 			</Modal.Body>

@@ -4,9 +4,11 @@ import { useState } from "react";
 // import { Label, Modal, TextInput } from "flowbite-react";
 // import { useState } from "react";
 import DashBoardModal from "../../Components/Modal";
+import CollegeTable from "../../Components/CollegeTable";
 
 const AdminDashboard = () => {
 	const [modalOpen, setModalOpen] = useState(false);
+	const [isCollegePage, setIsCollegePage] = useState(true);
 
 	const handleOpenModal = () => {
 		setModalOpen(true);
@@ -15,6 +17,7 @@ const AdminDashboard = () => {
 	const handleCloseModal = () => {
 		setModalOpen(false);
 	};
+
 	return (
 		<div>
 			<section className="bg-[#F9F5EB] p-3 sm:p-5 antialiased h-[95vh]">
@@ -73,7 +76,7 @@ const AdminDashboard = () => {
 											d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z"
 										></path>
 									</svg>
-									Add product
+									Add College
 								</button>
 								{modalOpen && (
 									<DashBoardModal
@@ -83,113 +86,33 @@ const AdminDashboard = () => {
 								)}
 								<div className="flex items-center space-x-3 w-full md:w-auto">
 									<button
+										onClick={() => {
+											setIsCollegePage(false);
+										}}
 										id="actionsDropdownButton"
 										data-dropdown-toggle="actionsDropdown"
 										className="w-full md:w-auto flex items-center justify-center py-2 px-4 text-sm font-medium text-white focus:outline-none bg-[#002B5B] hover:bg-[#002a5be3] rounded-lg border border-gray-200 focus:z-10 focus:ring-4 focus:ring-gray-200 :focus:ring-gray-700"
 										type="button"
 									>
-										<svg
-											className="-ml-1 mr-1.5 w-5 h-5"
-											fill="currentColor"
-											viewBox="0 0 20 20"
-											xmlns="http://www.w3.org/2000/svg"
-											aria-hidden="true"
-										>
-											<path
-												clipRule="evenodd"
-												fillRule="evenodd"
-												d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-											></path>
-										</svg>
-										Actions
+										Students
 									</button>
+								</div>
+								<div className="flex items-center space-x-3 w-full md:w-auto">
 									<button
-										id="filterDropdownButton"
-										data-dropdown-toggle="filterDropdown"
-										className="w-full md:w-auto flex items-center justify-center py-2 px-4 text-sm font-medium text-white focus:outline-none bg-[#002B5B] hover:bg-[#002a5be3] rounded-lg border border-gray-200 focus:z-10 focus:ring-4 focus:ring-gray-200"
+										onClick={() => {
+											setIsCollegePage(true);
+										}}
+										id="actionsDropdownButton"
+										data-dropdown-toggle="actionsDropdown"
+										className="w-full md:w-auto flex items-center justify-center py-2 px-4 text-sm font-medium text-white focus:outline-none bg-[#002B5B] hover:bg-[#002a5be3] rounded-lg border border-gray-200 focus:z-10 focus:ring-4 focus:ring-gray-200 :focus:ring-gray-700"
 										type="button"
 									>
-										<svg
-											xmlns="http://www.w3.org/2000/svg"
-											aria-hidden="true"
-											className="h-4 w-4 mr-2 text-gray-400"
-											viewBox="0 0 20 20"
-											fill="currentColor"
-										>
-											<path
-												fillRule="evenodd"
-												d="M3 3a1 1 0 011-1h12a1 1 0 011 1v3a1 1 0 01-.293.707L12 11.414V15a1 1 0 01-.293.707l-2 2A1 1 0 018 17v-5.586L3.293 6.707A1 1 0 013 6V3z"
-												clipRule="evenodd"
-											></path>
-										</svg>
-										Filter
-										<svg
-											className="-mr-1 ml-1.5 w-5 h-5"
-											fill="currentColor"
-											viewBox="0 0 20 20"
-											xmlns="http://www.w3.org/2000/svg"
-											aria-hidden="true"
-										>
-											<path
-												clipRule="evenodd"
-												fillRule="evenodd"
-												d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-											></path>
-										</svg>
+										College
 									</button>
 								</div>
 							</div>
 						</div>
-						<div className="overflow-x-auto">
-							<table className="w-full text-sm text-left text-black">
-								<thead className="text-xs text-white uppercase bg-[#002B5B]">
-									<tr>
-										<th scope="col" className="px-2 py-3">
-											ID
-										</th>
-										<th scope="col" className="px-4 py-4">
-											Name
-										</th>
-										<th scope="col" className="px-4 py-3">
-											College
-										</th>
-										<th scope="col" className="px-4 py-3">
-											Mobile
-										</th>
-										<th scope="col" className="px-4 py-3">
-											Email
-										</th>
-										<th scope="col" className="px-4 py-3">
-											Location
-										</th>
-									</tr>
-								</thead>
-								<tbody>
-									<tr className="border-b">
-										<th
-											scope="row"
-											className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap"
-										>
-											1
-										</th>
-										<td className="px-4 py-3">Tholkappiar</td>
-										<td className="px-4 py-3">SKCT</td>
-										<td className="px-4 py-3 max-w-[12rem] truncate">
-											1234567890
-										</td>
-										<td className="px-4 py-3">niz@ureeg.bz</td>
-										<td className="px-2 py-3 flex justify-start gap-4 flex-wrap">
-											<button className="bg-[#EA5455] hover:bg-[#da5e5ee6] w-20 h-8 rounded-md text-black">
-												Delete
-											</button>
-											<button className="bg-blue-400 hover:bg-[#68b2e7df] w-20 h-8 rounded-md text-black">
-												Edit
-											</button>
-										</td>
-									</tr>
-								</tbody>
-							</table>
-						</div>
+						{isCollegePage ? <CollegeTable /> : <div>thols</div>}
 					</div>
 				</div>
 			</section>

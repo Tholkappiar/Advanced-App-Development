@@ -11,10 +11,14 @@ import lombok.Data;
 @Data
 @Table(name = "College")
 public class CollegeEntity {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long Id;
+    private Long CollegeId;
     private String collegeName;
-    private String courses;
+    private String course;
     private String addr;
+    private String mobile;
+    private String email;
 }

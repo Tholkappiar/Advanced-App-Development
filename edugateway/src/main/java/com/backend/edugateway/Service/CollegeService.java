@@ -27,8 +27,10 @@ public class CollegeService {
     @SuppressWarnings("null")
     public CollegeEntity createCollege(CollegeEntity collegeEntity) {
         collegeEntity.setCollegeName(collegeEntity.getCollegeName().toLowerCase().trim());
-        collegeEntity.setCourses(collegeEntity.getCourses().toLowerCase().trim());
+        collegeEntity.setCourse(collegeEntity.getCourse().toLowerCase().trim());
         collegeEntity.setAddr(collegeEntity.getAddr().toLowerCase().trim());
+        collegeEntity.setMobile(collegeEntity.getMobile().toLowerCase().trim());
+        collegeEntity.setEmail(collegeEntity.getEmail().toLowerCase().trim());
         return collegeRepository.save(collegeEntity);
     }
 
@@ -47,8 +49,10 @@ public class CollegeService {
         if (updateCollegeEntity.isPresent()) {
             CollegeEntity existingCollege = updateCollegeEntity.get();
             existingCollege.setCollegeName(collegeEntity.getCollegeName().toLowerCase().trim());
-            existingCollege.setCourses(collegeEntity.getCourses().toLowerCase().trim());
+            existingCollege.setCourse(collegeEntity.getCourse().toLowerCase().trim());
             existingCollege.setAddr(collegeEntity.getAddr().toLowerCase().trim());
+            existingCollege.setMobile(collegeEntity.getMobile().toLowerCase().trim());
+            existingCollege.setEmail(collegeEntity.getEmail().toLowerCase().trim());
             return collegeRepository.save(existingCollege);
         }
         return null;

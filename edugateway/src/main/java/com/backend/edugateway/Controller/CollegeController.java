@@ -28,6 +28,7 @@ public class CollegeController {
     private CollegeService collegeService;
 
     @GetMapping("/allCollege")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public List<CollegeEntity> getAllCollege() {
         return collegeService.getAllCollege();
     }

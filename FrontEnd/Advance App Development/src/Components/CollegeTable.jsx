@@ -40,7 +40,7 @@ const DeleteModal = ({ modalStatus, modalClose, deleteCollege }) => {
 	);
 };
 
-const CollegeTable = () => {
+const CollegeTable = ({ collegeName = false }) => {
 	const [collegeData, setCollegeData] = useState([]);
 	const [deleteModalStatus, setDeleteModalStatus] = useState({});
 	const [editModalStatus, setEditModalStatus] = useState({});
@@ -48,17 +48,28 @@ const CollegeTable = () => {
 
 	useEffect(() => {
 		const fetchData = async () => {
-			try {
-				const { data } = await axiosInstance.get(
-					API_ENDPOINTS.collegeController.getAllColleges
-				);
-				setCollegeData(data);
-			} catch (error) {
-				console.error("Error fetching colleges:", error);
+			if (!collegeName) {
+				try {
+					const { data } = await axiosInstance.get(
+						API_ENDPOINTS.collegeController.getAllColleges
+					);
+					setCollegeData(data);
+				} catch (error) {
+					console.error("Error fetching colleges:", error);
+				}
+			} else {
+				try {
+					const { data } = await axiosInstance.get(
+						API_ENDPOINTS.collegeController.getCollegeByName(collegeName)
+					);
+					setCollegeData(data);
+				} catch (error) {
+					console.error("Error fetching colleges:", error);
+				}
 			}
 		};
 		fetchData();
-	}, []);
+	}, [collegeName]);
 
 	const handleDelete = async (collegeId) => {
 		try {

@@ -3,10 +3,13 @@
 import { useState } from "react";
 import DashBoardModal from "../../Components/Modal";
 import CollegeTable from "../../Components/CollegeTable";
+import { debounce } from "lodash";
 
 const AdminDashboard = () => {
 	const [modalOpen, setModalOpen] = useState(false);
 	const [isCollegePage, setIsCollegePage] = useState(true);
+
+	const [collegeName, setCollegeName] = useState(null);
 
 	const handleOpenModal = () => {
 		setModalOpen(true);
@@ -15,6 +18,10 @@ const AdminDashboard = () => {
 	const handleCloseModal = () => {
 		setModalOpen(false);
 	};
+
+	const handleSearch = debounce((event) => {
+		setCollegeName(event.target.value);
+	}, 700);
 
 	return (
 		<div>
@@ -45,6 +52,7 @@ const AdminDashboard = () => {
 										</div>
 										<input
 											type="text"
+											onChange={(e) => handleSearch(e)}
 											id="simple-search"
 											className="bg-[#002B5B] border border-gray-300 text-white text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full pl-10 p-2"
 											placeholder="Search"
@@ -110,7 +118,11 @@ const AdminDashboard = () => {
 								</div>
 							</div>
 						</div>
-						{isCollegePage ? <CollegeTable /> : <div>thols</div>}
+						{isCollegePage ? (
+							<CollegeTable collegeName={collegeName} />
+						) : (
+							<div>thols</div>
+						)}
 					</div>
 				</div>
 			</section>

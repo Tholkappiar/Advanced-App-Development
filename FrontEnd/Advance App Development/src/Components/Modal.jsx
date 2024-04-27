@@ -148,7 +148,7 @@ const DashBoardModal = ({
 					<div className="flex justify-center">
 						<button
 							onClick={handleSubmit}
-							className="text-sm font-medium bg-[#002B5B] text-white h-10 w-20 rounded-md shadow-lg"
+							className="text-sm font-medium bg-[#002B5B] text-white h-10 w-24 rounded-md shadow-lg"
 						>
 							{updateCollegeData ? "UPDATE" : "Add College"}
 						</button>

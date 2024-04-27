@@ -1,8 +1,6 @@
 "use client";
 
 import { useState } from "react";
-// import { Label, Modal, TextInput } from "flowbite-react";
-// import { useState } from "react";
 import DashBoardModal from "../../Components/Modal";
 import CollegeTable from "../../Components/CollegeTable";
 

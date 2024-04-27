@@ -1,13 +1,15 @@
-import { Modal } from "flowbite-react"; // Import the Modal component
+/* eslint-disable react/prop-types */
+import { Modal } from "flowbite-react";
 import { useEffect, useState } from "react";
 import axiosInstance from "../utils/axiosInstance";
 import { API_ENDPOINTS } from "../utils/Constants";
+import DashBoardModal from "./Modal";
 
-// eslint-disable-next-line react/prop-types
 const DeleteModal = ({ modalStatus, modalClose, deleteCollege }) => {
 	const handleConfirmDelete = () => {
 		deleteCollege();
 		modalClose();
+		window.location.reload();
 	};
 
 	return (
@@ -40,7 +42,9 @@ const DeleteModal = ({ modalStatus, modalClose, deleteCollege }) => {
 
 const CollegeTable = () => {
 	const [collegeData, setCollegeData] = useState([]);
-	const [deleteModalStatus, setDeleteModalStatus] = useState(false);
+	const [deleteModalStatus, setDeleteModalStatus] = useState({});
+	const [editModalStatus, setEditModalStatus] = useState({});
+	const [selectedCollege, setSelectedCollege] = useState(null);
 
 	useEffect(() => {
 		const fetchData = async () => {
@@ -56,7 +60,6 @@ const CollegeTable = () => {
 		fetchData();
 	}, []);
 
-	// Deleting the College
 	const handleDelete = async (collegeId) => {
 		try {
 			const response = await axiosInstance.delete(
@@ -70,12 +73,34 @@ const CollegeTable = () => {
 		}
 	};
 
-	const handleDeleteOpenModal = () => {
-		setDeleteModalStatus(true);
+	const handleDeleteOpenModal = (collegeId) => {
+		setDeleteModalStatus((prevStatus) => ({
+			...prevStatus,
+			[collegeId]: true,
+		}));
 	};
 
-	const handleDeleteCloseModal = () => {
-		setDeleteModalStatus(false);
+	const handleDeleteCloseModal = (collegeId) => {
+		setDeleteModalStatus((prevStatus) => ({
+			...prevStatus,
+			[collegeId]: false,
+		}));
+	};
+
+	const handleEditOpenModal = (college) => {
+		setSelectedCollege(college);
+		setEditModalStatus((prevStatus) => ({
+			...prevStatus,
+			[college.id]: true,
+		}));
+	};
+
+	const handleEditCloseModal = () => {
+		setEditModalStatus((prevStatus) => ({
+			...prevStatus,
+			[selectedCollege.id]: false,
+		}));
+		setSelectedCollege(null);
 	};
 
 	return (
@@ -128,21 +153,33 @@ const CollegeTable = () => {
 							<td className="px-4 py-3">{college.email}</td>
 							<td className="px-2 py-3 flex justify-start gap-4 flex-wrap">
 								<button
-									onClick={handleDeleteOpenModal}
+									onClick={() => handleDeleteOpenModal(college.id)}
 									className="bg-[#EA5455] hover:bg-[#da5e5ee6] w-20 h-8 rounded-md text-black"
 								>
 									Delete
 								</button>
-								{deleteModalStatus && (
+								{deleteModalStatus[college.id] && (
 									<DeleteModal
-										modalStatus={deleteModalStatus}
-										modalClose={handleDeleteCloseModal}
-										deleteCollege={() => handleDelete(college.id)} // Pass college id to delete
+										modalStatus={true}
+										modalClose={() => handleDeleteCloseModal(college.id)}
+										deleteCollege={() => handleDelete(college.id)}
 									/>
 								)}
-								<button className="bg-blue-400 hover:bg-[#68b2e7df] w-20 h-8 rounded-md text-black">
+								<button
+									onClick={() => handleEditOpenModal(college)}
+									className="bg-blue-400 hover:bg-[#68b2e7df] w-20 h-8 rounded-md text-black"
+								>
 									Edit
 								</button>
+								{editModalStatus[college.id] && (
+									<DashBoardModal
+										modalStatus={true}
+										modalClose={handleEditCloseModal}
+										updateCollege={true}
+										updateCollegeData={college}
+										updateCollegeId={college.id}
+									/>
+								)}
 							</td>
 						</tr>
 					))}

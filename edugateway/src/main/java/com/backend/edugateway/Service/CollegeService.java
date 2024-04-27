@@ -40,7 +40,7 @@ public class CollegeService {
     }
 
     public List<CollegeEntity> getByCollegeName(String name) {
-        return collegeRepository.findByCollegeName(name);
+        return collegeRepository.findByContainingCollegeName(name);
     }
 
     @SuppressWarnings("null")

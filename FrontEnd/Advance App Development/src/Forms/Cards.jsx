@@ -30,8 +30,8 @@ const Cards = () => {
 						key={college.id}
 						className="flex justify-around  flex-wrap h-[100%] py-10"
 					>
-						<div className="bg-[#F9F5EB] h-[360px] w-[330px] m-4 rounded-lg">
-							<div className="bg-gray-200 m-2 h-3/6 rounded-lg shadow-lg">
+						<div className="bg-[#F9F5EB] h-[350px] w-[350px] m-4 rounded-lg">
+							<div className="bg-gray-200 m-2 h-2/6 rounded-lg shadow-lg">
 								img
 							</div>
 							<div className="font-bold m-2">{college.collegeName}</div>
@@ -39,13 +39,22 @@ const Cards = () => {
 								{college.courses}
 							</div>
 							<div className="font-medium text-gray-700 m-2">
+								{college.course}
+							</div>
+							<div className="font-medium text-gray-700 m-2">
 								{college.addr}
+							</div>
+							<div className="font-medium text-gray-700 m-2">
+								{college.email}
+							</div>
+							<div className="font-medium text-gray-700 m-2">
+								{college.mobile}
 							</div>
 							{/* <div className="font-medium text-gray-700 m-2">
 								{college.Number}
 							</div> */}
 							<div className="flex justify-end">
-								<Link to={`/form/${college.collegeName}/${college.courses}`}>
+								<Link to={`/form/${college.collegeName}/${college.course}`}>
 									<button className="bg-red-400 rounded-lg h-[30px] w-[60px] m-2">
 										Enroll
 									</button>

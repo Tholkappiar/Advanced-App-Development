@@ -4,6 +4,7 @@ import { useState } from "react";
 import DashBoardModal from "../../Components/Modal";
 import CollegeTable from "../../Components/CollegeTable";
 import { debounce } from "lodash";
+import UserTable from "../../Components/UserTable";
 
 const AdminDashboard = () => {
 	const [modalOpen, setModalOpen] = useState(false);
@@ -121,7 +122,7 @@ const AdminDashboard = () => {
 						{isCollegePage ? (
 							<CollegeTable collegeName={collegeName} />
 						) : (
-							<div>thols</div>
+							<UserTable />
 						)}
 					</div>
 				</div>

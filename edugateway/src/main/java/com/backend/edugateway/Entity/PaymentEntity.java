@@ -19,5 +19,5 @@ public class PaymentEntity {
     private String courses;
     private String Address;
     private String date;
-    private String status;
+    private Boolean status;
 }

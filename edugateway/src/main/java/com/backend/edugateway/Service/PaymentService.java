@@ -25,12 +25,12 @@ public class PaymentService {
     }
 
     @SuppressWarnings("null")
-    public PaymentEntity createPayment(PaymentEntity joinedCollege) {
-        joinedCollege.setName(joinedCollege.getName().toLowerCase().trim());
-        joinedCollege.setCourses(joinedCollege.getCourses().toLowerCase().trim());
-        joinedCollege.setDate(joinedCollege.getDate().toLowerCase().trim());
-        joinedCollege.setStatus(joinedCollege.getStatus().toLowerCase().trim());
-        return paymentRepository.save(joinedCollege);
+    public PaymentEntity createPayment(PaymentEntity paymentEntity) {
+        paymentEntity.setName(paymentEntity.getName().toLowerCase().trim());
+        paymentEntity.setCourses(paymentEntity.getCourses().toLowerCase().trim());
+        paymentEntity.setDate(paymentEntity.getDate().trim());
+        paymentEntity.setStatus(paymentEntity.getStatus());
+        return paymentRepository.save(paymentEntity);
     }
 
     @SuppressWarnings("null")
@@ -50,7 +50,7 @@ public class PaymentService {
             updatedPaymentEntity.setCourses(paymentDTO.getCourses().toLowerCase().trim());
             updatedPaymentEntity.setAddress(paymentDTO.getAddress().toLowerCase().trim());
             updatedPaymentEntity.setDate(paymentDTO.getDate().toLowerCase().trim());
-            updatedPaymentEntity.setStatus(paymentDTO.getStatus().toLowerCase().trim());
+            updatedPaymentEntity.setStatus(paymentDTO.getStatus());
             return paymentRepository.save(updatedPaymentEntity);
         }
         return null;

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.backend.edugateway.Entity.EnrollEntity;
+import com.backend.edugateway.Entity.PaymentEntity;
 import com.backend.edugateway.Repository.EnrollRepository;
 import com.backend.edugateway.dto.EnrollCourseUpdate;
 
@@ -15,6 +16,9 @@ public class EnrollService {
 
     @Autowired
     private EnrollRepository enrollRepository;
+
+    @Autowired
+    private PaymentService paymentService;
 
     public List<EnrollEntity> getAllEnrollments() {
         return enrollRepository.findAll();
@@ -27,7 +31,20 @@ public class EnrollService {
 
     @SuppressWarnings("null")
     public EnrollEntity createEnrollment(EnrollEntity enrollEntity) {
-        return enrollRepository.save(enrollEntity);
+        // Post the data to the payment table
+        EnrollEntity responseData = enrollRepository.save(enrollEntity);
+        // if payment inserted into the table , insert the data to the payment table too
+        PaymentEntity payment = new PaymentEntity();
+        if (responseData != null) {
+            payment.setAddress(enrollEntity.getAddress());
+            payment.setCourses(enrollEntity.getCourseName());
+            payment.setName(enrollEntity.getName());
+            payment.setDate(enrollEntity.getDob());
+            payment.setStatus(false);
+        }
+
+        paymentService.createPayment(payment);
+        return responseData;
     }
 
     @SuppressWarnings("null")
